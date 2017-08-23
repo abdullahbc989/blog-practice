@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+    <section>
+        <div class="container">
+            {% if object_list %}
+                {% for obj in object_list %}
+                    <p><a href='{{ obj.get_absolute_url }}'>{{ obj.title }}</a></p>
+                    <p>{{ obj.desc }}</p>
+                    <p>Updated: {{ obj.updated }}</p>
+                    <p>Posted: {{ obj.timestamp }}</p>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </section>
+{% endblock content %}

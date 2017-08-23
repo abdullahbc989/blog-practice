@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}{{instance.title}}{% endblock title %}
+
+{% block content%}
+    <section>
+        <div class="container">
+            <h1>{{ instance.title }}</h1>
+            <p>{{ instance.content }}</p>
+            <p>
+                <small>Updated: {{ instance.updated }}</small>
+            </p>
+            <p>
+                <small>Created: {{ instance.timestamp }}</small>
+            </p>
+        </div>
+    </section>
+
+{% endblock content %}
