@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
+    {% include 'snippets/navform.html' %}
     <section>
         <div class="container">
             {% if object_list %}
@@ -12,13 +13,29 @@
                                         <img src="{{ obj.image.url }}" alt="" class="img-resp"/>
                                     {% endif %}
                                     <div class="caption">
-                                        <h3><a href='{{ obj.get_absolute_url }}'>{{ obj.title }}</a></h3>
+                                        <h3>
+                                            {% if obj.draft %}
+                                                <span class="text-danger">Draft </span>
+                                            {% endif %}
+                                            {% if obj.publish > today %}
+                                                <span class="text-muted">Future Post</span>
+                                            {% endif %}
+                                        </h3>
+                                        <h3><a href='{{ obj.get_absolute_url }}'>
+                                            {{ obj.title }}
+                                        </a>
+                                            {% if obj.user.get_full_name %}
+                                                <small>{{ obj.user.get_full_name }}</small>
+                                            {% else %}
+                                                <small>{{ obj.user }}</small>
+                                            {% endif %}
+                                        </h3>
                                         <p>{{ obj.content|linebreaks|truncatechars:100 }}</p>
                                         <p>Updated: {{ obj.updated|timesince }} ago</p>
-                                        <p>Posted: {{ obj.timestamp|timesince }} ago</p>
+                                        <p>Posted: {{ obj.publish }}</p>
                                         <p>
                                             <a class="btn btn-success" href="{{ obj.get_absolute_url }}">View</a>
-                                            <a class="btn btn-primary" href="{{ obj.id }}/edit">Update</a>
+                                            <a class="btn btn-primary" href="{{ obj.slug }}/edit">Update</a>
                                             <a class="btn btn-danger" href="{% url 'posts:home' %}{{obj.id}}/delete">Delete</a>
                                         </p>
                                     </div>
@@ -37,7 +54,8 @@
             <div class="pagination">
                 <span class="step-links">
                     {% if object_list.has_previous %}
-                        <a href="?page={{ contacts.previous_page_number }}">previous</a>
+                        <a href="?page={{ contacts.previous_page_number }}
+                            {% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">previous</a>
                     {% endif %}
 
                     <span class="current">
@@ -45,7 +63,8 @@
                     </span>
 
                     {% if object_list.has_next %}
-                        <a href="?page={{ object_list.next_page_number }}">next</a>
+                        <a href="?page={{ object_list.next_page_number }}
+                            {% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">next</a>
                     {% endif %}
                 </span>
             </div>

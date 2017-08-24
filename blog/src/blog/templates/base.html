@@ -19,17 +19,15 @@
         <title>{% block title %}Mama's Blog{% endblock title%}</title>
     </head>
     <body>
-        <div class="container">
-            <div class="col-sm-6 col-sm-offset-4">
-                <h1>Mama's Blog</h1>
-                <nav>
-                    <ul>
-                        <li><h4><a href=' {% url "posts:home" %} '>Home</a></h4></li>
-                        <li><h4><a href=' {% url "posts:create" %} '>Create</a></h4></li>
-                    </ul>
-                </nav>
-            </div>
-        </div>
+        <div id="fb-root"></div>
+        <script>(function(d, s, id) {
+                  var js, fjs = d.getElementsByTagName(s)[0];
+                  if (d.getElementById(id)) return;
+                  js = d.createElement(s); js.id = id;
+                  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.10";
+                  fjs.parentNode.insertBefore(js, fjs);
+                }(document, 'script', 'facebook-jssdk'));</script>
+
         {% block content%}
         {% endblock content %}
 
