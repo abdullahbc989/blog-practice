@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% block content %}
+    {% include 'snippets/navform.html' %}
+    <section>
+        <div class="container">
+            {% if object_list %}
+            <div class="col-sm-8 col-sm-offset-2">
+                    <div class="row">
+                        {% for obj in object_list %}
+                            <div class="col-sm-12">
+                                <div class="thumbnail">
+                                    {% if obj.image %}
+                                        <img src="{{ obj.image.url }}" alt="" class="img-resp"/>
+                                    {% endif %}
+                                    <div class="caption post-detail-item">
+                                        <h3>
+                                            {% if obj.draft %}
+                                                <span class="text-danger">Draft </span>
+                                            {% endif %}
+                                            {% if obj.publish > today %}
+                                                <span class="text-muted">Future Post</span>
+                                            {% endif %}
+                                        </h3>
+                                        <h3><a href='{{ obj.get_absolute_url }}'>
+                                            {{ obj.title }}
+                                        </a>
+                                            {% if obj.user.get_full_name %}
+                                                <small>{{ obj.user.get_full_name }}</small>
+                                            {% else %}
+                                                <small>{{ obj.user }}</small>
+                                            {% endif %}
+                                        </h3>
+                                        {{ obj.get_markdown|truncatewords_html:5 }}
+                                        <p>Updated: {{ obj.updated|timesince }} ago</p>
+                                        <p>Posted: {{ obj.publish }}</p>
+                                        <p>
+                                            <a class="btn btn-success" href="{{ obj.get_absolute_url }}">View</a>
+                                            <a class="btn btn-primary" href="{{ obj.slug }}/edit">Update</a>
+                                            <a class="btn btn-danger" href="{% url 'posts:home' %}{{obj.slug}}/delete">Delete</a>
+                                        </p>
+                                    </div>
+                                </div>
+                                <hr>
+                            </div>
+                        <!--{% cycle "" "<div class='col-sm-12'><hr></div></div><div class='row'>" %} -->
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+    <section>
+        <div class="container">
+            <div class="pagination">
+                <span class="step-links">
+                    {% if object_list.has_previous %}
+                        <a href="?page={{ contacts.previous_page_number }}
+                            {% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">previous</a>
+                    {% endif %}
+
+                    <span class="current">
+                        Page {{ object_list.number }} of {{ object_list.paginator.num_pages }}
+                    </span>
+
+                    {% if object_list.has_next %}
+                        <a href="?page={{ object_list.next_page_number }}
+                            {% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">next</a>
+                    {% endif %}
+                </span>
+            </div>
+        </div>
+    </section>
+{% endblock content %}

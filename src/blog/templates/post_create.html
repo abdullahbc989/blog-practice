@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block head_extra %}{{ form.media }}{% endblock head_extra %}
+{% block title %}Create Post{% endblock title %}
+
+{% block content %}
+    {% include 'snippets/nav.html' %}
+    <div class="col-sm-6">
+        <form method="POST" action='' enctype="multipart/form-data">{% csrf_token %}
+            {{ form.as_p }}
+            <input class="btn btn-success" type="submit" value="Submit Post">
+        </form>
+    </div>
+    <div class="col-sm-6">
+        <h1>Preview</h1>
+        <div class="content-preview">
+            <h3 id="preview-title"></h3>
+            <p id="preview-content"></p>
+        </div>
+    </div>
+{% endblock content %}

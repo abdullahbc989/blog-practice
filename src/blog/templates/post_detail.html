@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block title %}{{instance.title}}{% endblock title %}
+
+{% block content%}
+    {% include 'snippets/messages.html' %}
+    {% include 'snippets/nav.html' %}
+    <section>
+        <div class="container">
+            <div class="col-sm-6 col-sm-offset-3">
+                {% if instance.image %}
+                    <img src="{{ instance.image.url }}" alt="" class="img-resp"/>
+                {% endif %}
+                <h1>{{ instance.title }}&nbsp;
+                    <small>
+                        <a href="edit">Update</a>
+                    </small>
+                </h1>
+                {% if instance.user.get_full_name %}
+                    <h3>Author: {{ instance.user.get_full_name }}</h3>
+                {% else %}
+                    <h3>Author: {{ instance.user }}</h3>
+                {% endif %}
+                <div class="row">
+                    <div class="col-sm-12 post-detail-item">{{ instance.get_markdown }}</div>
+                </div>
+                <p>
+                    <small>Updated: {{ instance.updated }}</small>
+                </p>
+                <p>
+                    {% if instance.draft %}
+                        <span class="text-danger">Draft</span>
+                    {% endif %}
+                    <small>
+                        Created: {{ instance.publish }}
+                    </small>
+                </p>
+                <div class="fb-like" data-href="{{ request.build_absolute_url }}" data-layout="standard" data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>
+                <p>
+                    <a class="btn btn-primary" href="#">Share on FaceBook</a>
+                    <a class="btn btn-info" href="#">Share on Twitter</a>
+                    <a class="btn btn-danger" href="#">Share on Pinterest</a>
+                    <a class="btn btn-warning" href="#">Share on Reddit</a>
+                </p>
+                <h3 ><a class="text-danger" href="delete">Delete</a></h3>
+
+
+                <div class="fb-comments" data-href="{{ request.build_absolute_url }}" data-numposts="5"></div>
+            </div>
+        </div>
+    </section>
+
+{% endblock content %}
