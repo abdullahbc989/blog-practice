@@ -1,0 +1,24 @@
+h1 {
+    color: #777;
+}
+
+nav li {
+    list-style-type: none;
+    display: inline;
+}
+
+nav li h4 {
+    display: inline;
+}
+
+nav li h4 a:hover {
+    color: red;
+}
+
+.container .pagination .step-links a {
+    font-size: 20px;
+}
+
+.container .pagination .step-links span {
+    font-size: 20px;
+}
