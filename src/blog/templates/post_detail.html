@@ -62,6 +62,7 @@
                                             {{ comment.children.count }} Comments |
                                         {% endif %}
                                         <a class="comment-reply-btn" href="#">Reply</a>
+                                        <a href="{{ comment.get_absolute_url }}">Thread</a>
                                     </small>
                                 </p>
                                 <div class="comment-reply">
