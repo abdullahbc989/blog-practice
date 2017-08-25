@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load crispy_forms_tags %}
 {% block title %}{{instance.title}}{% endblock title %}
 
 {% block content%}
@@ -46,6 +46,10 @@
 
                 <div id="comment">
                     <h2>Comments</h2>
+                    <form action="." method="POST">{% csrf_token %}
+                        {{ comment_form|crispy }}
+                        <input type="submit" value="Post comment" class="btn btn-success">
+                    </form>
                     <hr>
                     {% for comment in comments %}
                         <div>
@@ -53,8 +57,29 @@
                                 <h3>{{ comment.user.username }}</h3>
                                 <p>{{ comment.content }}</p>
                                 <p>
-                                    <small>{{ comment.timestamp }}</small>
+                                    <small>{{ comment.timestamp }} |
+                                        {% if comment.children.count > 0 %}
+                                            {{ comment.children.count }} Comments |
+                                        {% endif %}
+                                        <a class="comment-reply-btn" href="#">Reply</a>
+                                    </small>
                                 </p>
+                                <div class="comment-reply">
+                                    {% for child_comment in comment.children %}
+                                        <blockquote>
+                                            <h3>{{ child_comment.user.username }}</h3>
+                                            <p>{{ child_comment.content }}</p>
+                                            <p>
+                                                <small>{{ child_comment.timestamp }}</small>
+                                            </p>
+                                        </blockquote>
+                                    {% endfor %}
+                                    <form action="." method="POST">{% csrf_token %}
+                                        {{ comment_form|crispy }}
+                                        <input type="hidden" name="parent_id" value="{{ comment.id }}">
+                                        <input type="submit" value="Reply" class="btn btn-success">
+                                    </form>
+                                </div>
                             </blockquote>
                             <hr>
                         </div>

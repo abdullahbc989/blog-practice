@@ -72,6 +72,11 @@
                     var newContent = $(this).val()
                     setTitle(newContent)
                 })
+
+                $(".comment-reply-btn").click(function(event) {
+                    event.preventDefault();
+                    $(this).parent().parent().next(".comment-reply").fadeToggle();
+                })
             });
         </script>
     </body>
