@@ -22,3 +22,8 @@ nav li h4 a:hover {
 .container .pagination .step-links span {
     font-size: 20px;
 }
+
+.wmd-panel {
+    margin-left: 0px; !important
+    margin-right: 0px; !important
+}

@@ -44,8 +44,24 @@
                 </p>
                 <h3 ><a class="text-danger" href="delete">Delete</a></h3>
 
+                <div id="comment">
+                    <h2>Comments</h2>
+                    <hr>
+                    {% for comment in comments %}
+                        <div>
+                            <blockquote>
+                                <h3>{{ comment.user.username }}</h3>
+                                <p>{{ comment.content }}</p>
+                                <p>
+                                    <small>{{ comment.timestamp }}</small>
+                                </p>
+                            </blockquote>
+                            <hr>
+                        </div>
 
-                <div class="fb-comments" data-href="{{ request.build_absolute_url }}" data-numposts="5"></div>
+                    {% endfor %}
+                </div>
+                <!-- <div class="fb-comments" data-href="{{ request.build_absolute_url }}" data-numposts="5"></div> -->
             </div>
         </div>
     </section>

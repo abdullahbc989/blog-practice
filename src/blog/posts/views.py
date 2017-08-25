@@ -4,6 +4,8 @@ from django.db.models import Q
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib import messages
 from django.utils import timezone
+
+from comments.models import Comment
 from .models import Post
 from .forms import PostForm
 
@@ -55,9 +57,11 @@ def post_detail(request, slug=None):
     if instance.publish > timezone.now().date() or instance.draft:
         if not request.user.is_staff or not request.user.is_superuser:
             raise Http404
+    comments = instance.comments  # Comment.objects.filter_by_instance(instance)
     template = "post_detail.html"
     context = {
-        "instance": instance
+        "instance": instance,
+        "comments": comments,
     }
     return render(request, template, context)
 
