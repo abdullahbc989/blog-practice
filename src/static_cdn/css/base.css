@@ -1,7 +1,4 @@
-h1 {
-    color: #777;
-}
-
+/* Home page */
 nav li {
     list-style-type: none;
     display: inline;
@@ -21,4 +18,17 @@ nav li h4 a:hover {
 
 .container .pagination .step-links span {
     font-size: 20px;
+}
+
+/* Details page */
+
+.comment-reply {
+    display: none;
+}
+
+/* Update/Create */
+
+.wmd-panel {
+    margin-left: 0px; !important
+    margin-right: 0px; !important
 }

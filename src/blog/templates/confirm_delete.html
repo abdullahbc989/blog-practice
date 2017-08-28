@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block title %}Delete Comment{% endblock title %}
+
+{% block content%}
+    {% include 'snippets/messages.html' %}
+    {% include 'snippets/nav.html' %}
+
+    <section>
+        <div class="container">
+            <div class="col-sm-6 col-sm-offset-3">
+                <h1>Confirm comment deletion</h1>
+                <form action="." method="POST">{% csrf_token %}
+                    <p>Are you ure you want to delete this comment?</p>
+                    <p>"{{ object.content }}"</p>
+                    <input type="submit" value="Confirm" class="btn btn-danger">
+                    <a href='{{ object.get_absolute_url }}' class="btn btn-warning">
+                        I change my mind
+                    </a>
+                </form>
+                <hr>
+            </div>
+        </div>
+    </section>
+
+{% endblock content %}

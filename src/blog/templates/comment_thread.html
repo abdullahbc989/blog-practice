@@ -17,6 +17,9 @@
                                 {% if comment.children.count > 0 %}
                                 {{ comment.children.count }} Comments
                                 {% endif %}
+                                {% if request.user == comment.user %}
+                                    <a href="delete" class="btn btn-danger">Delete</a>
+                                {% endif %}
                             </small>
                         </p>
                         <hr>
@@ -27,6 +30,9 @@
                                 <p>{{ child_comment.content }}</p>
                                 <p>
                                     <small>{{ child_comment.timestamp }}</small>
+                                    {% if request.user == child_comment.user %}
+                                        <a href="delete" class="btn btn-danger">Delete</a>
+                                    {% endif %}
                                 </p>
                             </blockquote>
                             {% endfor %}
