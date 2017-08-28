@@ -33,6 +33,9 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'comments',
     'posts',
+
+    'rest_framework',
+
     'pagedown',
     'markdown_deux',
     'crispy_forms',
