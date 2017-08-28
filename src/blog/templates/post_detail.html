@@ -20,6 +20,10 @@
                     <h3>Author: {{ instance.user.get_full_name }}</h3>
                 {% else %}
                     <h3>Author: {{ instance.user }}</h3>
+                <h4>Read time:
+                    {% if instance.read)time|"i" <= "01" %} < 1 minute
+                    {% else %}{{ instance.read_time|time:"i" }} minutes</h4>
+                    {% endif %}
                 {% endif %}
                 <div class="row">
                     <div class="col-sm-12 post-detail-item">{{ instance.get_markdown }}</div>

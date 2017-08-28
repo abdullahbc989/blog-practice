@@ -33,6 +33,7 @@
                                         {{ obj.get_markdown|truncatewords_html:5 }}
                                         <p>Updated: {{ obj.updated|timesince }} ago</p>
                                         <p>Posted: {{ obj.publish }}</p>
+                                        <p>Read time: {{ obj.read_time|time:"i" }} minutes</p>
                                         <p>
                                             <a class="btn btn-success" href="{{ obj.get_absolute_url }}">View</a>
                                             <a class="btn btn-primary" href="{{ obj.slug }}/edit">Update</a>
