@@ -27,6 +27,7 @@ from posts.api.permissions import IsOwnerOrReadOnly
 
 from .serializers import (
         CommentSerializer,
+        CommentDetailSerializer,
 )
 
 
@@ -51,8 +52,8 @@ class CommentListAPIView(ListAPIView):
 
 class CommentDetailAPIView(RetrieveAPIView):
     queryset = Comment.objects.all()
-    serializer_class = CommentSerializer
-    # lookup_field = 'slug'
+    serializer_class = CommentDetailSerializer
+    lookup_field = 'id'
 
 
 class PostCreateAPIView(CreateAPIView):
