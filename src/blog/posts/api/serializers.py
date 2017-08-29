@@ -26,6 +26,16 @@ class PostDetailSerializer(ModelSerializer):
             'publish',
         ]
 
+
+class PostCreateUpdateSerializer(ModelSerializer):
+    class Meta:
+        model = Post
+        fields = [
+            'title',
+            'content',
+            'publish',
+        ]
+
 """
 data = {
     "title": "Yeahh buddy",
