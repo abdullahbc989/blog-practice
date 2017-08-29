@@ -94,11 +94,16 @@ class CommentDetailSerializer(ModelSerializer):
             'id',
             'content_type',
             'object_id',
-            'parent',
             'content',
             'replies',
             'reply_count',
             'timestamp',
+        ]
+        read_only_fields = [
+            'content_type',
+            'object_id',
+            'reply_count',
+            'replies',
         ]
 
     def get_replies(self, obj):
