@@ -84,24 +84,49 @@ class CommentSerializer(ModelSerializer):
         return 0
 
 
-class CommentDetailSerializer(ModelSerializer):
-    replies = SerializerMethodField()
+class CommentListSerializer(ModelSerializer):
+    comment_detail_url = HyperlinkedIdentityField(
+        view_name='comments-api:thread',
+        lookup_field='id'
+    )
     reply_count = SerializerMethodField()
 
     class Meta:
         model = Comment
         fields = [
+            'comment_detail_url',
             'id',
-            'content_type',
-            'object_id',
+            'content',
+            'reply_count',
+            'timestamp',
+        ]
+
+    def get_reply_count(self, obj):
+        if obj.is_parent:
+            return obj.children().count()
+        return 0
+
+
+class CommentDetailSerializer(ModelSerializer):
+    replies = SerializerMethodField()
+    reply_count = SerializerMethodField()
+    content_object_url = SerializerMethodField()
+
+    class Meta:
+        model = Comment
+        fields = [
+            'id',
+            # 'content_type',
+            # 'object_id',
             'content',
             'replies',
             'reply_count',
             'timestamp',
+            'content_object_url',
         ]
         read_only_fields = [
-            'content_type',
-            'object_id',
+            # 'content_type',
+            # 'object_id',
             'reply_count',
             'replies',
         ]
@@ -115,6 +140,12 @@ class CommentDetailSerializer(ModelSerializer):
         if obj.is_parent:
             return obj.children().count()
         return 0
+
+    def get_content_object_url(self, obj):
+        try:
+            return obj.content_object.get_api_url()
+        except:
+            return None
 
 
 class CommentChildSerializer(ModelSerializer):
