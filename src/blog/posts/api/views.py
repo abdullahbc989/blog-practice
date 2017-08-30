@@ -35,6 +35,7 @@ class PostListAPIView(ListAPIView):
     filter_backends = [SearchFilter, OrderingFilter]
     search_fields = ['title', 'content', 'user__first_name']
     pagination_class = PostPageNumberPagination
+    permission_classes = [AllowAny]
 
     def get_queryset(self, *args, **kwargs):
         # queryset_list = super(PostListAPIView, self,).get_queryset(*args, **kwargs)
@@ -54,6 +55,7 @@ class PostDetailAPIView(RetrieveAPIView):
     queryset = Post.objects.all()
     serializer_class = PostDetailSerializer
     lookup_field = 'slug'
+    permission_classes = [AllowAny]
 
 
 class PostCreateAPIView(CreateAPIView):
